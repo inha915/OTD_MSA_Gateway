@@ -1,6 +1,11 @@
-eureka:
-  client:
-    enabled: false
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 spring:
   cloud:
@@ -19,28 +24,11 @@ spring:
               lower-case-service-id: true
           routes:
             - id: otd-life
-              #              uri: lb://otd-life
-              uri : http://localhost:8083
+              uri: lb://otd-life
               predicates:
-                - Path=/api/OTD/life/**, /api/OTD/life ,/api/OTD/meal/**, /api/OTD/meal,/api/OTD/exercise_record/**, /api/OTD/exercise_record
+                - Path=/api/OTD/life/**, /api/OTD/life ,/api/OTD/meal/**, /api/OTD/meal,/api/OTD/exercise_record/**, /api/OTD/exercise_record/** ,  /api/OTD/community/** , /api/OTD/exercise/** , /api/OTD/body_composition/**
 
             - id: otd-user
-              #              uri: lb://otd-user
-              uri : http://localhost:8082
+              uri: lb://otd-user
               predicates:
-                - Path=/api/OTD/user/**, /api/OTD/profile/**, /oauth2/authorization/**,/api/OTD/email/**,
-                  /api/OTD/challenge/** , /home/green/download/challenge/**
-
-
-constants:
-  jwt:
-    issuer: otd@otd.com #토큰 발행자
-    bearer-format: JWT
-
-    claim-key: signedUser
-    header-key: Authorization
-    secret-key: DaeguGreenArtAcademyClass502RoomForProjectOneTwoDayFighting
-
-    domain: greenart.n-e.kr
-
-    access-token-cookie-name: access-token
+                - Path=/api/OTD/user/**, /api/OTD/user/reissue/**,/api/OTD/profile/**, /oauth2/authorization/**,/api/OTD/email/**,/api/OTD/challenge/** , /home/green/download/challenge/**, /files/**, /profile/** , /api/OTD/admin/**
